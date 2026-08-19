@@ -23,12 +23,8 @@ jobs:
       run: npm install
 
     - name: Executar testes de API
-      run: npm test -- --reporters=default --reporters=jest-ctrf-json
+      run: npm test -- --reporters=default --reporters=jest-html-reporter
       continue-on-error: true
-
-    - name: Gerar Sumário
-      if: always()
-      run: npx github-actions-ctrf ctrf/ctrf-report.json
 
     - name: Upload do Relatório em HTML (Artefato)
       uses: actions/upload-artifact@v4
