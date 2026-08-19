@@ -1,0 +1,33 @@
+name: API Tests CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Instalar dependências
+      run: npm install
+
+    - name: Executar testes de API
+      run: npm test
+
+    - name: Upload do Relatório em HTML (Artefato)
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: api-test-report
+        path: reports/test-report.html
