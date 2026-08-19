@@ -23,10 +23,16 @@ jobs:
       run: npm install
 
     - name: Executar testes de API
-      run: npm test -- --reporters=default --reporters=jest-html-reporter
+      run: npm test
       continue-on-error: true
 
-    - name: Upload do Relatório em HTML (Artefato)
+    - name: Publicar Sumário 
+      uses: matt-ball/jest-stare-action@v2
+      if: always()
+      with:
+        json-file: ./reports/test-report.json
+
+    - name: Upload do Relatório em HTML
       uses: actions/upload-artifact@v4
       if: always()
       with:
